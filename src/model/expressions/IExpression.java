@@ -6,4 +6,5 @@ import model.values.IValue;
 
 public interface IExpression {
     IValue eval(MyIMap<String, IValue> symTbl) throws ExpressionException;
+    public IExpression deepCopy();
 }

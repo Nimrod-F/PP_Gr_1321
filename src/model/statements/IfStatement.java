@@ -1,5 +1,6 @@
 package model.statements;
 
+import exceptions.ExpressionException;
 import exceptions.StatementException;
 import model.expressions.IExpression;
 import model.state.PrgState;
@@ -17,7 +18,7 @@ public class IfStatement implements IStatement{
     }
 
     @Override
-    public PrgState execute(PrgState p) throws StatementException {
+    public PrgState execute(PrgState p) throws StatementException, ExpressionException {
         IValue v = condition.eval(p.getSymTbl());
         if(!v.getType().equals(new BoolType())){
             throw new StatementException("Condition expression does not evaluate to BoolType");
@@ -32,5 +33,9 @@ public class IfStatement implements IStatement{
     }
     public String toString(){
         return "if(" + condition + "){\n" + thenStmt + "}" + "\nelse{\n" + elseStmt + "\n}";
+    }
+    @Override
+    public IStatement deepCopy(){
+        return new IfStatement(condition.deepCopy(),thenStmt.deepCopy(),elseStmt.deepCopy());
     }
 }

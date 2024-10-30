@@ -40,7 +40,8 @@ public class ArithmeticExpression implements IExpression {
                     }
                     return new IntValue(leftInt.getValue() / rightInt.getValue());
 
-
+            default:
+                throw new ExpressionException("Unknown operator " + operator);
         }
     }
 
